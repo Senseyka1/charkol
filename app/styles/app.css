@@ -1,12 +1,4 @@
-:root {
-  --aside-width: 400px;
-  --cart-aside-summary-height-with-discount: 300px;
-  --cart-aside-summary-height: 250px;
-  --grid-item-width: 355px;
-  --header-height: 64px;
-  --color-dark: #000;
-  --color-light: #fff;
-}
+@import '../styles/variables/global.css';
 
 img {
   border-radius: 4px;
@@ -470,4 +462,188 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+/*
+* --------------------------------------------------
+* new code
+* --------------------------------------------------
+*/
+
+.slick-list {
+  margin: 0 -40px !important;
+}
+
+.slick-slide > div {
+  padding: 0 40px 40px;
+  border-right: 1px solid var(--border-accent);
+}
+
+.plusminusCollapse {
+  position: relative;
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+  top: -3px;
+}
+
+.plusminusCollapse::before,
+.plusminusCollapse::after {
+  content: '';
+  display: block;
+  background-color: var(--primary);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transition: 0.35s;
+  width: 100%;
+  height: 1px;
+}
+.plusminusCollapse::before {
+  transform: translatey(-50%);
+}
+.plusminusCollapse::after {
+  transform: translatey(-50%) rotate(90deg);
+}
+
+.plusminusCollapse.active::before {
+  transform: translatey(-50%) rotate(-90deg);
+  opacity: 0;
+}
+.plusminusCollapse.active::after {
+  transform: translatey(-50%) rotate(0);
+}
+
+.custom-panel .ant-collapse-header {
+  padding: 20px 16px 18px 0 !important;
+}
+
+.custom-panel > .ant-collapse-header .ant-collapse-expand-icon {
+  position: absolute;
+  right: 0;
+  top: 23px;
+}
+
+.custom-panel > .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0 16px 16px 0;
+}
+.custom-panel .ant-collapse-item:first-child {
+  border-top: 1px solid var(--border-accent);
+}
+
+.custom-panel .ant-collapse-header .ant-collapse-header-text {
+  font-family: 'Switzer-Medium';
+  font-size: 14px;
+  color: var(--gray-dark);
+
+  padding-right: 25px !important;
+}
+.custom-panel .ant-collapse-content {
+  font-size: 12px;
+  color: var(--gray-dark);
+}
+
+.custom-panel > .ant-collapse-content > .ant-collapse-content-box > div > p > a,
+.custom-panel
+  > .ant-collapse-content
+  > .ant-collapse-content-box
+  > div
+  > p
+  > strong {
+  color: var(--green-accent);
+}
+
+.custom-panel
+  > .ant-collapse-content
+  > .ant-collapse-content-box
+  > div
+  > p
+  > a:hover {
+  text-decoration: underline;
+}
+
+.custom-panel-footer > .ant-collapse-header > .ant-collapse-expand-icon {
+  position: absolute;
+  right: 0;
+  top: 7px;
+}
+
+.collapseWrapper
+  > .custom-panel-footer
+  > .ant-collapse-header
+  > .ant-collapse-expand-icon {
+  top: 11px;
+}
+
+.custom-panel-footer .ant-collapse-header {
+  padding: 1px 0 !important;
+  border-top: 1px solid #d8d8d8;
+}
+
+.custom-panel-footer > .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0 0 16px;
+}
+
+.faqProduct .ant-collapse-header {
+  background-color: white !important;
+}
+
+.faqProduct > .ant-collapse-content > .ant-collapse-content-box {
+  background-color: white !important;
+}
+
+@font-face {
+  font-family: 'Switzer-Thin';
+  src: url('../../fonts/Switzer-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Extralight';
+  src: url('../../fonts/Switzer-Extralight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Light';
+  src: url('../../fonts/Switzer-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Regular';
+  src: url('../../fonts/Switzer-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Medium';
+  src: url('../../fonts/Switzer-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Semibold';
+  src: url('../../fonts/Switzer-Semibold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer-Bold';
+  src: url('../../fonts/Switzer-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
 }

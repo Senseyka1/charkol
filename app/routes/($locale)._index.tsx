@@ -6,16 +6,28 @@ import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
+import Banner from '~/components/Home/Banner';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
 };
 
-export async function loader({context}: LoaderFunctionArgs) {
+export async function loader({context, params}: LoaderFunctionArgs) {
   const {storefront} = context;
+  const {language, country} = context.storefront.i18n;
+
   const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
   const featuredCollection = collections.nodes[0];
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
+
+  if (
+    params.locale &&
+    params.locale.toLowerCase() !== `${language}-${country}`.toLowerCase()
+  ) {
+    // If the locale URL param is defined, yet we still are on `EN-US`
+    // the the locale param must be invalid, send to the 404 page
+    throw new Response(null, {status: 404});
+  }
 
   return defer({featuredCollection, recommendedProducts});
 }
@@ -24,6 +36,7 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
+      <Banner />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>

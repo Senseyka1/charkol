@@ -54,7 +54,7 @@ export function HeaderMenu({
           style={activeLinkStyle}
           to="/"
         >
-          Home
+          Home1
         </NavLink>
       )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {

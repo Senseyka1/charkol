@@ -1,5 +1,6 @@
 // Virtual entry point for the app
 import * as remixBuild from '@remix-run/dev/server-build';
+
 import {
   cartGetIdDefault,
   cartSetIdDefault,
@@ -93,8 +94,9 @@ export default {
   },
 };
 
-function getLocaleFromRequest(request: Request): I18nLocale {
+export function getLocaleFromRequest(request: Request): I18nLocale {
   const url = new URL(request.url);
+
   const firstPathPart = url.pathname.split('/')[1]?.toUpperCase() ?? '';
 
   type I18nFromUrl = [I18nLocale['language'], I18nLocale['country']];

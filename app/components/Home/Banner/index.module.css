@@ -1,0 +1,72 @@
+.wrapper {
+  position: relative;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.content {
+  width: 50%;
+  height: 665px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "Switzer-Light";
+  color: var(--gray-dark);
+  text-align: left;
+  font-size: 54px;
+  margin-bottom: 12px;
+}
+
+.text {
+  color: var(--gray-dark);
+  font-size: 16px;
+  max-width: 472px;
+  margin-bottom: 32px;
+}
+
+.button {
+  margin-bottom: 60px;
+}
+
+.itemsImages {
+  display: flex;
+}
+
+.itemImage {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 53px;
+  margin: 0 10px;
+  color: var(--gray-dark);
+  font-size: 10px;
+}
+.itemImage:first-child {
+  margin-left: 0;
+}
+
+.imgWrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 665px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*# sourceMappingURL=index.module.css.map */

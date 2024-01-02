@@ -3,6 +3,7 @@ import {
   defer,
   type SerializeFrom,
   type LoaderFunctionArgs,
+  type LinksFunction,
 } from '@shopify/remix-oxygen';
 import {
   Links,
@@ -22,6 +23,11 @@ import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import {Layout} from '~/components/Layout';
+
+import {cssBundleHref} from '@remix-run/css-bundle';
+
+// import {getLocaleFromRequest} from './lib/utils';
+import {getLocaleFromRequest} from 'server';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -44,8 +50,9 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   return false;
 };
 
-export function links() {
+export const links: LinksFunction = () => {
   return [
+    ...(cssBundleHref ? [{rel: 'stylesheet', href: cssBundleHref}] : []),
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
     {
@@ -58,14 +65,16 @@ export function links() {
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
-}
+};
 
 export const useRootLoaderData = () => {
   const [root] = useMatches();
   return root?.data as SerializeFrom<typeof loader>;
 };
 
-export async function loader({context}: LoaderFunctionArgs) {
+export async function loader({context, request}: LoaderFunctionArgs) {
+  console.log('request', request);
+
   const {storefront, session, cart} = context;
   const customerAccessToken = await session.get('customerAccessToken');
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
@@ -102,6 +111,7 @@ export async function loader({context}: LoaderFunctionArgs) {
       header: await headerPromise,
       isLoggedIn,
       publicStoreDomain,
+      selectedLocale: await getLocaleFromRequest(request),
     },
     {headers},
   );
@@ -110,9 +120,10 @@ export async function loader({context}: LoaderFunctionArgs) {
 export default function App() {
   const nonce = useNonce();
   const data = useLoaderData<typeof loader>();
+  const locale = data.selectedLocale;
 
   return (
-    <html lang="en">
+    <html lang={locale?.language || 'en'}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -120,7 +131,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout {...data}>
+        <Layout
+          {...data}
+          key={`${locale?.language || 'en'}-${locale?.country || 'en'}`}
+        >
           <Outlet />
         </Layout>
         <ScrollRestoration nonce={nonce} />
